@@ -1,3 +1,4 @@
+// Imports de Chakra UI per al disseny del formulari i secció
 import {
   Box,
   Text,
@@ -8,14 +9,19 @@ import {
   FormLabel,
   VStack
 } from '@chakra-ui/react'
+
 import { useState } from 'react'
+
+// Importació de les preguntes freqüents (FAQ)
 import faq from '../data/faq'
 
 function Support() {
+  // Estats controlats per al formulari de contacte
   const [email, setEmail] = useState('')
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
 
+  // Funció per esborrar tots els camps del formulari
   const handleReset = () => {
     setEmail('')
     setSubject('')
@@ -26,13 +32,13 @@ function Support() {
     <Box bg="#0C0C0C" color="white" py={10}>
       <Box maxW="1200px" mx="auto" px={{ base: 4, md: 6 }}>
 
-        {/* TÍTOL */}
+        {/* Títol de la pàgina */}
         <Text fontSize="2xl" fontWeight="bold" mb={2}>Suport</Text>
         <Text fontSize={{ base: 'md', md: 'lg' }} mb={10}>
           Consulta les preguntes freqüents i envia'ns les teves consultes.
         </Text>
 
-        {/* PREGUNTES FREQÜENTS */}
+        {/* Secció de preguntes freqüents (FAQ) */}
         <Box bg="#1A1A1A" p={6} borderRadius="md" mb={10}>
           {faq.map((item, index) => (
             <Box key={index} mb={6}>
@@ -44,9 +50,11 @@ function Support() {
           ))}
         </Box>
 
-        {/* FORMULARI DE CONTACTE */}
+        {/* Formulari de contacte */}
         <Box bg="#1A1A1A" p={6} borderRadius="md">
           <VStack spacing={6} align="stretch">
+
+            {/* Camp per introduir el correu de contacte */}
             <FormControl>
               <FormLabel color="gray.300">Mail de contacte</FormLabel>
               <Input
@@ -60,6 +68,7 @@ function Support() {
               />
             </FormControl>
 
+            {/* Camp per l’assumpte de la consulta */}
             <FormControl>
               <FormLabel color="gray.300">Assumpte</FormLabel>
               <Input
@@ -73,6 +82,7 @@ function Support() {
               />
             </FormControl>
 
+            {/* Camp per escriure el missatge */}
             <FormControl>
               <FormLabel color="gray.300">Descripció</FormLabel>
               <Textarea
@@ -86,6 +96,7 @@ function Support() {
               />
             </FormControl>
 
+            {/* Botons d’esborrar i enviar (enviar encara no implementat) */}
             <Box display="flex" justifyContent="space-between" gap={4} pt={2}>
               <Button
                 variant="outline"

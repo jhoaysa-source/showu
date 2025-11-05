@@ -1,5 +1,4 @@
-
-
+// Importació de components visuals de Chakra UI
 import {
   Box,
   Text,
@@ -11,10 +10,13 @@ import {
   FormControl,
   FormLabel
 } from '@chakra-ui/react'
+
 import { useRef } from 'react'
 
+// Icona per a la pujada d’arxius
 import iconUpload from '../assets/icon_upload.svg'
 
+// Categories predefinides per seleccionar en el formulari
 const categories = [
   'Abstracte',
   'Il·lustració',
@@ -25,8 +27,10 @@ const categories = [
 ]
 
 function Create() {
+  // Referència a l’input de fitxer (amagat) per activar-lo des d’un clic extern
   const inputRef = useRef(null)
 
+  // Funció per activar el selector de fitxers
   const handleUploadClick = () => {
     inputRef.current?.click()
   }
@@ -35,11 +39,13 @@ function Create() {
     <Box bg="#0C0C0C" color="white" py={10}>
       <Box maxW="1200px" mx="auto" px={{ base: 4, md: 6 }}>
 
-        {/* TÍTOL */}
+        {/* Títol i subtítol de la pàgina */}
         <Text fontSize="2xl" fontWeight="bold" mb={2}>Penja el teu treball</Text>
-        <Text fontSize={{ base: 'md', md: 'lg' }} mb={10}>Comparteix la teva creativitat amb la comunitat</Text>
+        <Text fontSize={{ base: 'md', md: 'lg' }} mb={10}>
+          Comparteix la teva creativitat amb la comunitat
+        </Text>
 
-        {/* ZONA DE PUJADA PREPARADA */}
+        {/* Zona de pujada d’arxius (fictícia de moment) */}
         <Box
           bg="#1A1A1A"
           border="2px dashed #2D2D2D"
@@ -50,7 +56,7 @@ function Create() {
           cursor="pointer"
           onClick={handleUploadClick}
         >
-          {/* INPUT OCULT */}
+          {/* Input ocult per seleccionar arxius */}
           <input
             ref={inputRef}
             type="file"
@@ -63,7 +69,7 @@ function Create() {
             }}
           />
 
-          {/* ICONA AMB FONS RODÓ */}
+          {/* Icona dins un cercle verd */}
           <Box
             bg="#112D1B"
             borderRadius="full"
@@ -78,13 +84,15 @@ function Create() {
             <img src={iconUpload} alt="Pujar" width="30" height="30" />
           </Box>
 
+          {/* Textos informatius sobre la pujada */}
           <Text fontSize={{ base: 'md', md: 'lg' }} fontWeight="semibold">Clica per penjar</Text>
           <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.400">PNG, JPG, GIF fins a 1GB</Text>
         </Box>
 
-        {/* FORMULARI */}
+        {/* Formulari amb camps de text */}
         <Box bg="#1A1A1A" p={6} borderRadius="md" mb={8}>
-          {/* TÍTOL OBRA */}
+
+          {/* Camp per introduir el títol de l’obra */}
           <FormControl mb={6}>
             <FormLabel fontSize={{ base: 'md', md: 'lg' }}>Títol</FormLabel>
             <Input
@@ -97,7 +105,7 @@ function Create() {
             />
           </FormControl>
 
-          {/* DESCRIPCIÓ */}
+          {/* Camp per descriure el treball */}
           <FormControl mb={6}>
             <FormLabel fontSize={{ base: 'md', md: 'lg' }}>Descripció</FormLabel>
             <Textarea
@@ -110,7 +118,7 @@ function Create() {
             />
           </FormControl>
 
-          {/* CATEGORIA */}
+          {/* Selector de categoria */}
           <FormControl>
             <FormLabel fontSize={{ base: 'md', md: 'lg' }}>Categoria</FormLabel>
             <Select
@@ -118,10 +126,13 @@ function Create() {
               bg="#0C0C0C"
               border="1px solid #2D2D2D"
               color="white"
-              
             >
               {categories.map((cat) => (
-                <option key={cat} value={cat} style={{ backgroundColor: '#0C0C0C', color: 'white' }}>
+                <option
+                  key={cat}
+                  value={cat}
+                  style={{ backgroundColor: '#0C0C0C', color: 'white' }}
+                >
                   {cat}
                 </option>
               ))}
@@ -129,7 +140,7 @@ function Create() {
           </FormControl>
         </Box>
 
-        {/* BOTONS */}
+        {/* Botons d’acció: cancel·lar o penjar */}
         <Flex justify="space-between" gap={4}>
           <Button
             variant="outline"

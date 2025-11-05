@@ -1,4 +1,11 @@
-// src/data/obres.js
+// Llista fictícia d'obres d'art utilitzada com a dades de prova (mock data)
+// Cada obra conté:
+// - id: identificador únic
+// - titol: nom de l’obra
+// - artista: nom de l’autor/a
+// - likes: nombre de "m'agrada" rebuts
+// - views: nombre de visualitzacions
+
 const obres = [
   { id: 1, titol: 'Obra1', artista: 'ARTS1', likes: 10, views: 20 },
   { id: 2, titol: 'Obra2', artista: 'ARTS2', likes: 12, views: 20 },
@@ -10,4 +17,5 @@ const obres = [
   { id: 8, titol: 'Obra8', artista: 'ARTS8', likes: 14, views: 16 },
 ]
 
+// Exportació de la llista per poder utilitzar-la en altres components (ex: galeries)
 export default obres

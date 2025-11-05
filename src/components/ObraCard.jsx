@@ -1,21 +1,32 @@
+// Importació de components visuals de Chakra UI
 import { Box, Text } from '@chakra-ui/react'
+
+// Hook per navegar entre pàgines (React Router)
 import { useNavigate } from 'react-router-dom'
+
+// Icones per mostrar likes i visualitzacions
 import iconCora from '../assets/icon_cora.svg'
 import iconOjo from '../assets/icon_ojo.svg'
 
+// Component que mostra una targeta (card) amb la informació d’una obra
+// Si "editable" és true, en fer clic et porta a l'editor, si no, a la vista detallada
 function ObraCard({ obra, editable = false }) {
   const navigate = useNavigate()
 
+  // Funció que s’executa quan es fa clic a la card
   const handleClick = () => {
     if (editable) {
+      // Si estem en mode editable, porta a l’edició de l’obra
       navigate(`/perfil/editar/${obra.id}`)
     } else {
+      // Si no, mostra la vista detallada de l’obra
       navigate(`/explora/obra/${obra.id}`)
     }
   }
 
   return (
     <Box
+      // Contenidor de la targeta d’obra
       bg="#1A1A1A"
       borderRadius="md"
       overflow="hidden"
@@ -23,7 +34,7 @@ function ObraCard({ obra, editable = false }) {
       cursor="pointer"
       onClick={handleClick}
     >
-      {/* Imatge fictícia */}
+      {/* Imatge de l’obra (fictícia de moment) */}
       <Box
         bg="gray.700"
         height="150px"
@@ -34,14 +45,16 @@ function ObraCard({ obra, editable = false }) {
         <Text color="gray.500">Imatge</Text>
       </Box>
 
-      {/* Informació */}
+      {/* Informació de l’obra: títol, autor, likes i vistes */}
       <Box p={4}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
+          {/* Títol i artista */}
           <Box>
             <Text fontWeight="bold">{obra.titol}</Text>
             <Text fontSize="sm" color="gray.400">per {obra.artista}</Text>
           </Box>
 
+          {/* Estadístiques de l’obra: likes i visualitzacions */}
           <Box display="flex" flexDirection="column" alignItems="flex-end" gap={1} fontSize="sm" color="white">
             <Box display="flex" alignItems="center" gap={1}>
               <img src={iconCora} alt="likes" width="16" height="16" />

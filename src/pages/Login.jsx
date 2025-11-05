@@ -1,4 +1,4 @@
-// src/pages/Login.jsx
+// Imports de Chakra UI per a l'estructura i estil del formulari
 import {
   Box,
   Button,
@@ -10,27 +10,33 @@ import {
   Flex,
   useToast,
 } from '@chakra-ui/react'
+
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+// Funció d'autenticació de Firebase
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { auth, db } from '../firebase'
 
 function Login() {
-  const navigate = useNavigate()
-  const toast = useToast()
+  const navigate = useNavigate() // Per redirigir després d'iniciar sessió
+  const toast = useToast()       // Per mostrar missatges d'estat
 
+  // Estats per controlar els inputs del formulari
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  // Funció que gestiona l'enviament del formulari
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
+      // Inicia sessió amb email i contrasenya via Firebase Auth
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
       const user = userCredential.user
 
-      // Obtenir dades de Firestore
+      // Un cop autenticat, obté informació addicional de Firestore
       const docRef = doc(db, 'users', user.uid)
       const docSnap = await getDoc(docRef)
 
@@ -38,6 +44,7 @@ function Login() {
         const userData = docSnap.data()
         console.log('Usuari loguejat:', userData)
 
+        // Mostra missatge d’èxit
         toast({
           title: 'Sessió iniciada!',
           description: `Benvingut/da, ${userData.username}`,
@@ -46,11 +53,13 @@ function Login() {
           isClosable: true,
         })
 
-        navigate('/perfil') // Canvia la ruta si cal
+        // Redirigeix al perfil de l’usuari
+        navigate('/perfil')
       } else {
         throw new Error('No s’ha trobat el perfil de l’usuari.')
       }
     } catch (error) {
+      // Missatge d’error si alguna cosa falla
       console.error(error)
       toast({
         title: 'Error',
@@ -70,7 +79,6 @@ function Login() {
       align="center"
       justify="center"
       px={4}
-      position="relative"
     >
       <Box
         bg="#1A1A1A"
@@ -80,6 +88,7 @@ function Login() {
         maxW="400px"
         w="full"
       >
+        {/* Títol i subtítol */}
         <Text fontSize="2xl" fontWeight="bold" mb={2}>
           Inicia sessió
         </Text>
@@ -87,8 +96,10 @@ function Login() {
           Accedeix al teu compte per gestionar el teu perfil.
         </Text>
 
+        {/* Formulari de login */}
         <form onSubmit={handleSubmit}>
           <VStack spacing={5}>
+            {/* Camp del correu electrònic */}
             <FormControl isRequired>
               <FormLabel>Correu electrònic</FormLabel>
               <Input
@@ -103,6 +114,7 @@ function Login() {
               />
             </FormControl>
 
+            {/* Camp de la contrasenya */}
             <FormControl isRequired>
               <FormLabel>Contrasenya</FormLabel>
               <Input
@@ -117,6 +129,7 @@ function Login() {
               />
             </FormControl>
 
+            {/* Botó per enviar el formulari */}
             <Button
               type="submit"
               width="100%"
@@ -130,6 +143,7 @@ function Login() {
           </VStack>
         </form>
 
+        {/* Enllaç a registre si no té compte */}
         <Text fontSize="sm" mt={6} textAlign="center">
           Encara no tens compte?{' '}
           <span

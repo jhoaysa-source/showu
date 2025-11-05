@@ -1,3 +1,4 @@
+// Imports de components visuals de Chakra UI
 import {
   Box,
   Text,
@@ -11,13 +12,19 @@ import {
   HStack,
   VStack
 } from '@chakra-ui/react'
+
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
+
+// Dades simulades
 import obres from '../data/obres'
+
+// Icones utilitzades
 import iconCora from '../assets/icon_cora.svg'
 import iconOjo from '../assets/icon_ojo.svg'
 import iconTrash from '../assets/icon_trash.svg'
 
+// Categories disponibles per assignar a l’obra
 const allCategories = [
   'Abstracte',
   'Il·lustració',
@@ -29,18 +36,23 @@ const allCategories = [
 
 function ObraEditar() {
   const { id } = useParams()
+
+  // Troba l'obra basada en l'id rebut per l'URL
   const obra = obres.find((obra) => obra.id === parseInt(id))
 
+  // Estats controlats per l’edició
   const [titol, setTitol] = useState(obra?.titol || '')
   const [descripcio, setDescripcio] = useState('Descripció de l’obra.')
   const [selectedCategories, setSelectedCategories] = useState(['Il·lustració'])
 
+  // Afegeix o elimina una categoria del llistat seleccionat
   const toggleCategory = (cat) => {
     setSelectedCategories((prev) =>
       prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
     )
   }
 
+  // Si no es troba l’obra amb l’id proporcionat
   if (!obra) {
     return (
       <Box bg="#0C0C0C" color="white" p={10}>
@@ -53,7 +65,7 @@ function ObraEditar() {
     <Box bg="#0C0C0C" color="white" py={10}>
       <Box maxW="900px" mx="auto" px={{ base: 4, md: 6 }}>
 
-        {/* Títol editable i botó de guardar */}
+        {/* Camp d’entrada per editar el títol + botó per desar */}
         <Flex align="center" gap={4} mb={4}>
           <Input
             value={titol}
@@ -76,7 +88,7 @@ function ObraEditar() {
           </Button>
         </Flex>
 
-        {/* Autor i mètriques */}
+        {/* Informació de l’autor i mètriques de l’obra */}
         <Flex justify="space-between" align="center" mb={4}>
           <Text fontSize="sm" color="gray.400">Per {obra.artista}</Text>
           <HStack spacing={4}>
@@ -91,7 +103,7 @@ function ObraEditar() {
           </HStack>
         </Flex>
 
-        {/* Imatge gran fictícia */}
+        {/* Imatge fictícia de l’obra */}
         <Box
           bg="gray.700"
           height={{ base: '250px', md: '400px' }}
@@ -104,7 +116,7 @@ function ObraEditar() {
           <Text color="gray.500">Imatge de l’obra</Text>
         </Box>
 
-        {/* Categories seleccionables */}
+        {/* Botons per seleccionar o deseleccionar categories */}
         <Box mb={6}>
           <Flex wrap="wrap" gap={2}>
             {allCategories.map((cat) => {
@@ -130,7 +142,7 @@ function ObraEditar() {
           </Flex>
         </Box>
 
-        {/* Descripció editable */}
+        {/* Camp editable per a la descripció de l’obra */}
         <Textarea
           value={descripcio}
           onChange={(e) => setDescripcio(e.target.value)}
@@ -140,7 +152,7 @@ function ObraEditar() {
           mb={8}
         />
 
-        {/* Comentaris */}
+        {/* Comentaris sobre l’obra (mock) amb opció d’eliminar */}
         <Box>
           <Text fontSize="xl" fontWeight="bold" mb={4}>Comentaris</Text>
           <VStack align="start" spacing={4}>
@@ -155,6 +167,7 @@ function ObraEditar() {
                   <Text>Comentari sobre l’obra.</Text>
                 </Box>
               </Flex>
+              {/* Botó per eliminar comentari (fictici) */}
               <IconButton
                 icon={<img src={iconTrash} alt="Eliminar" width="20" height="20" />}
                 aria-label="Eliminar comentari"
@@ -164,7 +177,6 @@ function ObraEditar() {
             </Flex>
           </VStack>
         </Box>
-
       </Box>
     </Box>
   )
